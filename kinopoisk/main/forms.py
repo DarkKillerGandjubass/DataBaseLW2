@@ -5,17 +5,14 @@ from django.forms import *
 class KinoForm(ModelForm):
     class Meta:
         model = Kino
-        fields = ["title", "desc", "one","two","three", "studio", "type", "year"]
+        fields = ["title", "desc", "genres", "studio", "type", "year"]
         title = CharField(max_length=100)
         desc = CharField(max_length=100)
-        CHOICES_ZHANR = ((i.id, i.name) for i in Zhanr.objects.all())
-        one = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
-        two = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
-        three = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
+        genres = ModelMultipleChoiceField(queryset=Zhanr.objects.all(), widget=CheckboxSelectMultiple())
         CHOICES_STUDIO = ((i.id, i.name) for i in Studio.objects.all())
-        studio = MultipleChoiceField(choices=CHOICES_STUDIO, widget=CheckboxSelectMultiple())
+        studio = MultipleChoiceField(choices=CHOICES_STUDIO, widget=CheckboxSelectMultiple)
         CHOICES_KINOTYPE = ((i.id, i.typename) for i in KinoType.objects.all())
-        type = MultipleChoiceField(choices=CHOICES_KINOTYPE, widget=CheckboxSelectMultiple())
+        type = MultipleChoiceField(choices=CHOICES_KINOTYPE, widget=CheckboxSelectMultiple)
         year = IntegerField()
 
         # widgets = {
@@ -71,13 +68,10 @@ class LoginForm(ModelForm):
 class UpdateFilms(ModelForm):
     class Meta:
         model = Kino
-        fields = ["title", "desc", "one", "two", "three", "studio", "type", "year"]
+        fields = ["title", "desc", "genres", "studio", "type", "year"]
         title = CharField(max_length=100)
         desc = CharField(max_length=100)
-        CHOICES_ZHANR = ((i.id, i.name) for i in Zhanr.objects.all())
-        one = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
-        two = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
-        three = MultipleChoiceField(choices=CHOICES_ZHANR, widget=CheckboxSelectMultiple())
+        genres = ModelMultipleChoiceField(queryset=Zhanr.objects.all(), widget=CheckboxSelectMultiple())
         CHOICES_STUDIO = ((i.id, i.name) for i in Studio.objects.all())
         studio = MultipleChoiceField(choices=CHOICES_STUDIO, widget=CheckboxSelectMultiple())
         CHOICES_KINOTYPE = ((i.id, i.typename) for i in KinoType.objects.all())
