@@ -26,9 +26,7 @@ class Zhanr(models.Model):
 class Kino(models.Model):
     title = models.CharField('название фильма', max_length=50)
     desc = models.CharField('описание фильма', max_length=300)
-    one = models.ForeignKey(Zhanr, on_delete=models.CASCADE, default=None, related_name="one", null=True)
-    two = models.ForeignKey(Zhanr, on_delete=models.CASCADE, default=None, related_name="two", null=True)
-    three = models.ForeignKey(Zhanr, on_delete=models.CASCADE, default=None, related_name="three", null=True)
+    genres = models.ManyToManyField(Zhanr, default=None,related_name="genres")
     studio = models.ForeignKey(Studio, on_delete=models.CASCADE, default=None, related_name="studio")
     type = models.ForeignKey(KinoType, on_delete=models.CASCADE, default=None, related_name="type")
     year = models.IntegerField(default=2000)
