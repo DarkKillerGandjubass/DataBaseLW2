@@ -55,30 +55,59 @@
     </tr>
     {% endfor %}
 </table>
-    <form action="{% url 'filter' %}" method="get">
-        {% for genre in view.get_genres %}
-            {% if genre.id != 1 %}
-                <li>
-                    <input type="checkbox" name="genre" value="{{ genre.id }}">
-                    <span >{{ genre.name }}</span>
-                </li>
-            {% endif %}
-        {% endfor %}
-
-         {% for year in view.get_years %}
-             <li>
-                 <input type="checkbox" name="year" value="{{ year.year }}">
-                <span >{{  year.year }}</span>
-             </li>
-         {% endfor %}
-     <button type="submit">Фильтр</button>
-     </form>
-
-
 
 {% else %}
 <p>У нас нет фильмов(((</p>
 {% endif %}
+<label class="custom-checkbox">
+<form action="{% url 'filter' %}" method="get">
+ <input name="FilmName" type="text" placeholder="Поиск по названию">
+     <button type="submit">Поиск</button>
+</form>
+
+<form action="{% url 'filter' %}" method="get">
+ <input name="FilmDesc" type="text" placeholder="Поиск по описанию">
+     <button type="submit">Поиск</button>
+</form>
+
+    <form action="{% url 'filter' %}" method="get">
+
+        {% for genre in view.get_genres %}
+            {% if genre.id != 1 %}
+        <div>
+                    <input type="checkbox" name="genre" value="{{ genre.id }}">
+                    <span >{{ genre.name }}</span>
+        </div>
+            {% endif %}
+        {% endfor %}
+        <br>
+         {% for year in view.get_years %}
+             <div>
+                 <input type="checkbox" name="year" value="{{ year.year }}">
+                <span >{{  year.year }}</span>
+             </div>
+         {% endfor %}
+        <br>
+     {% for types in view.get_types %}
+                <div>
+                    <input type="checkbox" name="type" value="{{ types.id }}">
+                    <span >{{ types.typename }}</span>
+                </div>
+        {% endfor %}
+        <br>
+    {% for studios in view.get_studios %}
+                <div>
+                    <input type="checkbox" name="studio" value="{{ studios.id }}">
+                    <span >{{ studios.name }}</span>
+                </div>
+        {% endfor %}
+
+     <button type="submit">Фильтр</button>
+     </form>
+</label>
+
+
+
 
 
 </body>

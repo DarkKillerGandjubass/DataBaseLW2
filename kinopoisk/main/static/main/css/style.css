@@ -256,3 +256,11 @@ a {
 	border: 1px solid #dddddd;
 	padding: 5px;
 }
+
+/* для элемента input c type="checkbox" */
+.custom-checkbox>input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+

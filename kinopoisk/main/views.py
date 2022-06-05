@@ -11,7 +11,14 @@ class FilterView:
         return Zhanr.objects.all()
 
     def get_years(self):
-        return Kino.objects.values("year")
+        return Kino.objects.values("year").distinct()
+
+    def get_types(self):
+        return KinoType.objects.all()
+
+    def get_studios(self):
+        return Studio.objects.all()
+
 
 class DeleteFilms(DeleteView):
     template_name = 'main/deletefilms.html'
@@ -29,11 +36,21 @@ class UpdateFilms(UpdateView):
 
 class FilterMoviesView(FilterView, ListView):
     def get_queryset(self):
-        queryset = Kino.objects.filter(
-            Q(year__in=self.request.GET.getlist("year")) |
-            Q(genres__in=self.request.GET.getlist("genre"))
-        )
-        return queryset
+        queryset = Kino.objects.all()
+        if self.request.GET.getlist("year"):
+            queryset = queryset.filter(Q(year__in=self.request.GET.getlist("year")))
+        if self.request.GET.getlist("genre"):
+            queryset = queryset.filter(Q(genres__in=self.request.GET.getlist("genre")))
+        if self.request.GET.getlist("type"):
+            queryset = queryset.filter(Q(type__in=self.request.GET.getlist("type")))
+        if self.request.GET.getlist("studio"):
+            queryset = queryset.filter(Q(studio__in=self.request.GET.getlist("studio")))
+        if self.request.GET.getlist("FilmName"):
+            queryset = queryset.filter(Q(title__istartswith=self.request.GET.getlist("FilmName")[0]))
+        if self.request.GET.getlist("FilmDesc"):
+            queryset = queryset.filter(Q(desc__icontains=self.request.GET.getlist("FilmDesc")[0]))
+        return queryset.distinct()
+
 
 def index(request):
     submitButton = request.POST.get("submit")
@@ -73,7 +90,7 @@ def registr(request):
 class EnterView(FilterView, ListView):
     model = Kino
     template_name = 'main/kino_list.html'
-    context_object_name ='kino_list'
+    context_object_name = 'kino_list'
 
 
 # def enter(request):
