@@ -12,8 +12,9 @@
 <body>
 <div class="header">
     <h1>КинОnlineТеатр</h1>
+    <h5><a href="{% url 'enter' %}">Смотреть не авторизовавшись</a></h5>
 </div>
-<h2>Регистрация</h2>
+<h2>Вход</h2>
 <form method="post">
     <p><b>Ваш логин:</b><br>
         {% csrf_token %}

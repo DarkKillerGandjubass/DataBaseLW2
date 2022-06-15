@@ -9,4 +9,5 @@ urlpatterns = [
     path('registr', views.registr, name='registr'),
     path('kino/<int:pk>/edit/', views.UpdateFilms.as_view(), name='updatefilms'),
     path('kino/<int:pk>/delete/', views.DeleteFilms.as_view(), name='deletefilms'),
+    path('logout/', views.user_logout, name='logout')
 ]

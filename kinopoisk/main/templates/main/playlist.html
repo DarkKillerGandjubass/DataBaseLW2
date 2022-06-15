@@ -17,14 +17,16 @@
       </div>
       <div class="topnav">
         <a href="{% url 'enter' %}">Главная</a>
-        <a href="">Создать плейлист </a>
-          <a href="/">Выйти</a>
+        <a href="">Добавить фильм </a>
+          <a href="{% url 'logout' %}">Выйти</a>
       </div>
     <h1>Добавьте ваш фильм в общую базу</h1>
       <div class="row">
           <form method="post">
               {% csrf_token %}
+              <p>Название фильма</p>
              {{ form.title}}
+              <p>Описание фильма</p>
               {{ form.desc }}
               <p>выберите жанр (зажмите ctrl для выбора нескольких)</p>
               {{ form.genres }}

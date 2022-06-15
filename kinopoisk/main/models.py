@@ -9,6 +9,7 @@ class Studio(models.Model):
     def __str__(self):
         return self.name
 
+
 class KinoType(models.Model):
     typename = models.CharField('выберите тип', max_length=40)
 

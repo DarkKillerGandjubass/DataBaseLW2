@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse_lazy
 from .models import *
 from .forms import KinoForm, UserForm, LoginForm, UpdateFilms
 from django.views.generic import DeleteView, UpdateView, ListView
 from django.db.models import Q
+from django.contrib.auth import authenticate,login,logout
 
 
 class FilterView:
@@ -63,6 +64,10 @@ def index(request):
         passwordForm = form.cleaned_data.get('password')
 
     if User.objects.filter(login=loginForm).filter(password=passwordForm):
+        uname = loginForm
+        upass = passwordForm
+        user = authenticate(username=uname, password=upass)
+        login(request, user)
         return redirect('/enter')
 
     context = {
@@ -72,6 +77,11 @@ def index(request):
         'password': passwordForm
     }
     return render(request, 'main/index.html', context)
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 def registr(request):
@@ -91,7 +101,6 @@ class EnterView(FilterView, ListView):
     model = Kino
     template_name = 'main/kino_list.html'
     context_object_name = 'kino_list'
-
 
 # def enter(request):
 #     data = Kino.objects.all()
