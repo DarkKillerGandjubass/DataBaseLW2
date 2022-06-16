@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '.ngrok.io']
 
-CSRF_TRUSTED_ORIGINS = ['https://5258-77-222-96-233.eu.ngrok.io']
+CSRF_TRUSTED_ORIGINS = ['https://a066-77-222-96-233.eu.ngrok.io']
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'kinopoisk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,3 +126,6 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'enter'

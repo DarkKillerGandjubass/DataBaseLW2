@@ -1,5 +1,6 @@
 from .models import *
 from django.forms import *
+from django.contrib.auth.models import User
 
 
 class KinoForm(ModelForm):
@@ -34,9 +35,9 @@ class KinoForm(ModelForm):
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ["login", "password"]
+        fields = ["username", "password"]
         widgets = {
-            "login": TextInput(attrs={
+            "username": TextInput(attrs={
                 'class': 'form-row',
                 'placeholder': 'Введите логин'
             }),
@@ -51,9 +52,9 @@ class UserForm(ModelForm):
 class LoginForm(ModelForm):
     class Meta:
         model = User
-        fields = ["login", "password"]
+        fields = ["username", "password"]
         widgets = {
-            "login": TextInput(attrs={
+            "username": TextInput(attrs={
                 'class': 'form-row',
                 'placeholder': 'Введите логин'
             }),

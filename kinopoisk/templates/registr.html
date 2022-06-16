@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <link rel="stylesheet" href="{% static 'main/css/style.css'%}">
+   <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
@@ -13,10 +13,10 @@
 <div class="header">
     <h1>КинОnlineТеатр</h1>
 </div>
-        <h1 class="reg__header">Регистрация</h1>
+        <h1 class="reg__header">Регистрация ( ваш пароль должен быть не менее 8 символов, должен содержать как буквы, так и цифры)</h1>
         <form action="" method="post" class="form reg__form">
         {% csrf_token %}
-        {{ form.login }}
+        {{ form.username }}
         {{ form.password }}
 
         <button type="submit" class="button reg__button">Зарегистрироваться</button>

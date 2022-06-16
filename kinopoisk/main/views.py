@@ -5,6 +5,7 @@ from .forms import KinoForm, UserForm, LoginForm, UpdateFilms
 from django.views.generic import DeleteView, UpdateView, ListView
 from django.db.models import Q
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User
 
 
 class FilterView:
@@ -22,13 +23,13 @@ class FilterView:
 
 
 class DeleteFilms(DeleteView):
-    template_name = 'main/deletefilms.html'
+    template_name = 'deletefilms.html'
     model = Kino
     success_url = reverse_lazy('enter')
 
 
 class UpdateFilms(UpdateView):
-    template_name = 'main/updatefilms.html'
+    template_name = 'updatefilms.html'
     model = Kino
     form = UpdateFilms
     fields = ["title", "desc", "genres", "studio", "type"]
@@ -60,23 +61,23 @@ def index(request):
 
     form = LoginForm(request.POST or None)
     if form.is_valid():
-        loginForm = form.cleaned_data.get('login')
+        loginForm = form.cleaned_data.get('username')
         passwordForm = form.cleaned_data.get('password')
 
-    if User.objects.filter(login=loginForm).filter(password=passwordForm):
+    if User.objects.filter(username=loginForm).filter(password=passwordForm):
         uname = loginForm
         upass = passwordForm
         user = authenticate(username=uname, password=upass)
         login(request, user)
-        return redirect('/enter')
+        return HttpResponseRedirect(reverse('enter'))
 
     context = {
         'form': form,
         'submitButton': submitButton,
-        'login': loginForm,
+        'username': loginForm,
         'password': passwordForm
     }
-    return render(request, 'main/index.html', context)
+    return render(request, 'index.html', context)
 
 
 def user_logout(request):
@@ -88,13 +89,16 @@ def registr(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('enter'))
     form = UserForm()
     context = {
         'form': form
     }
-    return render(request, 'main/registr.html', context)
+    return render(request, 'registr.html', context)
 
 
 class EnterView(FilterView, ListView):
@@ -104,7 +108,7 @@ class EnterView(FilterView, ListView):
 
 # def enter(request):
 #     data = Kino.objects.all()
-#     return render(request, 'main/kino_list.html', {'title': 'Главная страница сайта', 'kinos': data})
+#     return render(request, 'kino_list.html', {'title': 'Главная страница сайта', 'kinos': data})
 
 
 def playlist(request):
@@ -122,4 +126,4 @@ def playlist(request):
         'form': form,
         'error': error
     }
-    return render(request, 'main/playlist.html', context)
+    return render(request, 'playlist.html', context)

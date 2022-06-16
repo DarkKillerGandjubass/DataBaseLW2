@@ -40,17 +40,17 @@ class Kino(models.Model):
         verbose_name_plural = 'фильмы'
 
 
-class User(models.Model):
-    login = models.CharField('логин', max_length=20)
-    password = models.CharField('пароль', max_length=30)
-
-    def __str__(self):
-        return self.login
-
-    class Meta:
-        verbose_name = 'пользователь'
-        verbose_name_plural = 'пользователи'
-
+# class User(models.Model):
+#     login = models.CharField('логин', max_length=20)
+#     password = models.CharField('пароль', max_length=30)
+#
+#     def __str__(self):
+#         return self.login
+#
+#     class Meta:
+#         verbose_name = 'пользователь'
+#         verbose_name_plural = 'пользователи'
+#
 
 class ZhanrKino(models.Model):
     kino = models.ForeignKey(Kino, on_delete=models.CASCADE)

@@ -1,4 +1,4 @@
 from django.contrib import admin
 from .models import *
 
-admin.site.register([Kino, User, Zhanr, ZhanrKino, Studio, KinoType])
+admin.site.register([Kino, Zhanr, ZhanrKino, Studio, KinoType])
